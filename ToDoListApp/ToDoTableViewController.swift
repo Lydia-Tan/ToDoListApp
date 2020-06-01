@@ -35,7 +35,13 @@ class ToDoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return toDos.count
     }
+    
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let toDo = toDos[indexPath.row]
+        performSegue(withIdentifier: "moveToComplete", sender: toDo)
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
         
@@ -51,5 +57,14 @@ class ToDoTableViewController: UITableViewController {
         return cell
     }
     
-
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if let addVC = segue.destination as? AddToDoViewController {
+           addVC.previousVC = self
+         }
+         if let completeVC = segue.destination as? CompleteToDoViewController {
+               completeVC.selectedToDo = toDo
+               completeVC.previousVC = self
+             }
+         
+       }
 }
