@@ -32,7 +32,7 @@ class AddToDoViewController: UIViewController {
 
         let toDo = ToDoCD(context: context)
 
-        toDo.name = titleField.text
+        toDo.name = titleTextField.text
         toDo.important = importantSwitch.isOn
 
         appDelegate.saveContext()
